@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matheus Reboque - Assistência 24 Horas</title>
+  <!-- Swiper CSS -->
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+/>
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --primary: #d42f2f;
+      --secondary: #f8f9fa;
+      --accent: #25d366;
+      --dark: #343a40;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow-x: hidden;
+    }
+    
+    /* Carrossel */
+    .carousel {
+      min-height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .carousel-item {
+      height: 100vh;
+      background-size: cover;
+      background-position: center;
+    }
+    
+    .carousel-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+    }
+    
+    /* Header */
+    .navbar {
+      background: rgba(0, 0, 0, 0.5);
+      transition: background 0.3s ease;
+    }
+    
+    .navbar.scrolled {
+      background: rgba(0, 0, 0, 0.9);
+    }
+    
+    .logo {
+      height: 130px;
+      margin: 0px;
+      filter: drop-shadow(0 0 5px rgba(0,0,0,0.7));
+    }
+    
+    /* Hero Section */
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+    
+    /* About Section */
+    .about-img {
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease;
+    }
+    
+    .about-img:hover {
+      transform: scale(1.02);
+    }
+    
+    /* WhatsApp Float */
+    .whatsapp-float {
+      position: fixed;
+      bottom: -100px;
+      right: 20px;
+      z-index: 1000;
+      transition: all 0.5s ease;
+      animation: pulse 2s infinite;
+    }
+    
+    .whatsapp-float.show {
+      bottom: 20px;
+    }
+    
+    .whatsapp-icon {
+      width: 60px;
+      height: 60px;
+      background-color: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
+    }
+    
+    .whatsapp-icon:hover {
+      transform: scale(1.1);
+      box-shadow: 0 7px 20px rgba(0,0,0,0.4);
+    }
+    
+    .whatsapp-icon i {
+      font-size: 30px;
+      color: white;
+    }
+    
+    
+    /* Footer */
+    .footer {
+      background-color: rgb(19, 37, 61) !important;
+      color: white;
+    }
+    
+    .footer-icon {
+      font-size: 1.2rem;
+      margin-right: 10px;
+      width:20px
+    }
+    
+    .section-title {
+      position: relative;
+      padding-bottom: 15px;
+      margin-bottom: 25px;
+    }
+    
+    .section-title:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 3px;
+    }
+    
+    .btn-primary {
+      background-color: var(--primary);
+      border-color: var(--primary);
+      padding: 10px 25px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+      background-color: #b02525;
+      border-color: #b02525;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    
+    .btn-whatsapp {
+      background-color: var(--accent);
+      border-color: var(--accent);
+      padding: 10px 25px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-whatsapp:hover {
+      background-color: #128c7e;
+      border-color: #128c7e;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    
+    /* Animations */
+    .animate-slide-in {
+      opacity: 0;
+      transform: translateX(100px);
+      transition: all 0.8s ease;
+    }
+    
+    .animate-slide-in.active {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    
+    .animate-fade-in {
+      opacity: 0;
+      transition: all 0.8s ease;
+    }
+    
+    .animate-fade-in.active {
+      opacity: 1;
+    }
+    .botaowhatsapptopo {
+      width: 170px;
+    }
+    /* Mobile-specific styles */
+@media (max-width: 767.98px) {
+  /* Adjust carousel height to avoid excessive scrolling */
+  .carousel {
+    min-height: 70vh; /* Reduced height for mobile */
+  }
+  
+  .carousel-item {
+    height: 70vh; /* Match the reduced height */
+  }
+  
+  /* Center and scale hero content for mobile */
+  .hero-content {
+    transform: translate(-50%, -50%) !important; /* Adjust positioning */
+    padding: 0 15px; /* Add padding for narrow screens */
+  }
+  
+  .hero-content h1 {
+    font-size: 1.8rem; /* Smaller heading for mobile */
+    line-height: 1.2;
+  }
+  
+  .hero-content p.lead {
+    font-size: 1rem; /* Smaller lead text */
+    margin-bottom: 2rem;
+  }
+  
+  .hero-content .btn-primary {
+    padding: 8px 20px; /* Slightly smaller button */
+    font-size: 0.9rem;
+  }
+  
+  /* Navigation adjustments */
+  .navbar {
+    padding: 10px 15px; /* Reduce padding for compact look */
+  }
+  
+  .navbar-brand {
+    flex-grow: 1; /* Ensure logo takes available space */
+  }
+  
+  .logo {
+    height: 80px; /* Slightly smaller logo for mobile */
+  }
+  
+  .logo-title {
+    font-size: 1.2rem !important; /* Consistent with your existing rule */
+  }
+  
+  .logo-title2 {
+    font-size: 1rem !important; /* Consistent with your existing rule */
+  }
+  
+  .buttonc {
+    font-size: 0.8rem; /* Match your existing rule */
+    padding: 6px 12px; /* Slightly larger for touch */
+  }
+  
+  .botaowhatsapptopo {
+    width: 100px; /* Smaller WhatsApp button in navbar */
+  }
+  
+  /* Collapse menu adjustments */
+  #contactToggle {
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  #contactToggle a {
+    font-size: 0.9rem; /* Smaller text for links */
+  }
+  
+  /* About section adjustments */
+  .about-img {
+    max-width: 100%; /* Ensure image fits container */
+    height: auto;
+  }
+  
+  .swiper {
+    height: 200px; /* Slightly smaller than your existing 220px for better fit */
+  }
+  
+  .about-section h1 {
+    font-size: 1.8rem; /* Smaller heading */
+  }
+  
+  .about-section p.lead {
+    font-size: 1rem; /* Smaller paragraph text */
+  }
+  
+  .about-section .fs-5 {
+    font-size: 1.1rem !important; /* Adjust font size */
+  }
+  
+  /* Footer adjustments */
+  .footer {
+    padding: 2rem 0; /* Reduce padding */
+  }
+  
+  .footer .section-title {
+    font-size: 1.5rem; /* Smaller section title */
+  }
+  
+  .footer p, .footer ul li a {
+    font-size: 0.9rem; /* Smaller text for readability */
+  }
+  
+  .footer iframe {
+    height: 120px; /* Smaller map for mobile */
+  }
+  
+  .footer-icon {
+    width: 18px; /* Slightly smaller icons */
+  }
+  
+  /* WhatsApp float button */
+  .whatsapp-float {
+    bottom: 15px; /* Closer to bottom for accessibility */
+    right: 15px;
+  }
+  
+  .whatsapp-float img {
+    width: 120px; /* Smaller WhatsApp button */
+  }
+  
+  .whatsapp-float.show {
+    bottom: 15px; /* Consistent with non-animated state */
+  }
+}
+
+/* Ultra-small screens (below 360px) */
+@media (max-width: 359.98px) {
+  .hero-content h1 {
+    font-size: 1.5rem; /* Even smaller heading */
+  }
+  
+  .hero-content p.lead {
+    font-size: 0.85rem;
+  }
+  
+  .hero-content .btn-primary {
+    padding: 6px 15px;
+    font-size: 0.8rem;
+  }
+  
+  .logo {
+    height: 70px; /* Further reduce logo size */
+  }
+  
+  .botaowhatsapptopo {
+    width: 90px; /* Even smaller WhatsApp button */
+  }
+  
+  .swiper {
+    height: 180px; /* Smaller Swiper for tiny screens */
+  }
+  
+  .footer iframe {
+    height: 100px; /* Smaller map */
+  }
+}
+    @media (max-width: 850.98px) {
+  .logo-title {
+    font-size: 1.4rem !important;
+  }
+  .logo-title2 {
+    font-size: 1.2rem !important;
+  }
+}
+    @media(max-width:433px ) {
+      .buttonc {
+        font-size: 0.8em;
+        padding: 5px;
+      }
+      .logo-title {
+        font-size: 1.1rem !important;
+      }
+      .logo-title2 {
+        font-size: 1rem !important;
+      }
+    
+      .botaowhatsapptopo {
+      width: 100px;
+    }
+    }
+@media(max-width:360px ) {
+      .buttonc {
+        font-size: 0.7em;
+        padding: 4px;
+      }
+      .logo-title {
+        font-size: 0.9rem !important;
+      }
+      .logo-title2 {
+        font-size: 0.8rem !important;
+      }
+      .botaowhatsapptopo {
+      width: 80px;
+    }
+    }
+
+  </style>
+</head>
+<body>
+  
+  <!-- Seção 1: Carrossel e Navegação -->
+  <section class="carousel" style="background-color: rgb(26, 52, 90); margin:0px !important" >
+      <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgb(26, 47, 77, 0.5); z-index:1001">
+        <div class="container-fluid">
+          <a class="navbar-brand d-flex  align-items-center" href="#">
+            <img src="images/logo_.png" alt="Logo Matheus Reboque" class="logo me-2">
+            <div class="flex-column">
+              <h2 class=" d-md-block display-5 fw-bold text-center mb-2 logo-title" 
+                    style="color:yellow;">
+                  Matheus Reboque
+                </h2>
+        
+              <h2 class="logo-title2" style="color:#101a72; text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;">
+                Assistência 24 Horas
+              </h2>
+            </div>
+          </a>
+          <!-- Botão de toggle visível apenas em telas pequenas -->
+  <!-- Botão visível apenas em telas pequenas -->
+<button class="btn btn-outline-light d-md-none buttonc" type="button" data-bs-toggle="collapse" data-bs-target="#contactToggle" aria-expanded="false" aria-controls="contactToggle">
+  Contatos
+</button>
+
+<!-- Collapse visível como flex apenas em telas médias pra cima -->
+<div class="collapse d-md-flex flex-column flex-md-row align-items-center ms-md-auto" id="contactToggle">
+  <a href="mailto:matheushfranscisco1998@gmail.com" class="text-white text-decoration-none mx-3 my-2">
+    <img src="images/logoemail.png" alt="Email" width="30px">
+  </a>
+  <a href="https://www.instagram.com/matheus_reboque_24_hrs/" target="_blank" class="text-white text-decoration-none mx-3 my-2">
+    <img src="images/instagramlogo.png" alt="Instagram" width="30px">
+  </a>
+  <a href="https://wa.me/5531996492419" target="_blank" class="mx-3 my-2">
+    <img src="images/botao-whatsapp-fixo.png" alt="WhatsApp" class="botaowhatsapptopo">
+  </a>
+</div>
+
+
+    </nav>
+    <div id="mainCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="w-100 h-100" style="background: linear-gradient(rgb(26, 47, 77, 0.5)), url('images/imagem1.png') center/cover;"></div>
+        </div>
+        <div class="carousel-item">
+          <div class="w-100 h-100" style="background: linear-gradient(rgb(26, 47, 77, 0.5)), url('images/imagem2.png') center/cover;"></div>
+        </div>
+        <div class="carousel-item">
+          <div class="w-100 h-100" style="background: linear-gradient(rgb(26, 47, 77, 0.5)), url('images/imagem3.png') center/cover;"></div>
+        </div>
+        <div class="carousel-item">
+          <div class="w-100 h-100" style="background: linear-gradient(rgb(26, 47, 77, 0.5)), url('images/imagem4.png') center/cover;"></div>
+        </div><div class="carousel-item">
+          <div class="w-100 h-100" style="background: linear-gradient(rgb(26, 47, 77, 0.5)), url('images/imagem5.png') center/cover;"></div>
+        </div>
+      </div>
+    </div>
+  
+    
+    <div class="carousel-overlay"></div>
+    
+    <div class="container position-absolute top-50 start-50 translate-middle text-center text-white hero-content" style="transform: translate(-50%, -25%)!important;"> 
+      <h1 class="display-4 fw-bold mb-4">GUINCHO E SOCORRO 24 HORAS</h1>
+      <p class="lead mb-5">Transporte de veículos leves e semi pesados<br>Contagem, Esmeraldas, Nova Contagem, Novo Retiro e todas as regiões.</p>
+      <a href="https://wa.me/5531996492419" target="_blank" class="btn btn-primary btn-lg px-5 py-3">
+        Chame Agora
+      </a>
+    </div>
+  </section>
+
+  <!-- Seção 2: Sobre -->
+  <section class="py-5 bg-white text-center">
+    <div class="container py-5">
+      <div class="row align-items-center">
+        <div class="col-lg-6 mb-5 mb-lg-0">
+          <h1 class="  display-4 fw-bold mb-3"><span style="color: rgb(19, 37, 61);">Matheus Reboque</span></h1>
+          <p class=" fs-5 mb-4" style="color: #101a72;"><b>Atendemos com a credibilidade que você merece</b></p>
+<p class="lead fw-bold mb-4">
+  Oferecemos um atendimento personalizado, com guincho moderno, seguro e totalmente equipado. Cuidamos do seu veículo com atenção máxima e transporte especializado do início ao fim.
+</p>
+          <div style="background-color: #ffc107; padding: 10px 20px; border-radius: 8px; text-align: center; display: inline-block;">
+            <h4 style="margin: 0; color: #000;"><b>Preços a partir de R$120,00</b></h4>
+          </div>
+
+        </div>
+        <div class="col-lg-6 d-flex justify-content-center align-items-center">
+  <div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide"><img src="images/imagem1.png" class="carousel-img" alt="Imagem 1" /></div>
+      <div class="swiper-slide"><img src="images/imagem2.png" class="carousel-img" alt="Imagem 2" /></div>
+      <div class="swiper-slide"><img src="images/imagem3.png" class="carousel-img" alt="Imagem 3" /></div>
+      <div class="swiper-slide"><img src="images/imagem4.png" class="carousel-img" alt="Imagem 4" /></div>
+      <div class="swiper-slide"><img src="images/imagem5.png" class="carousel-img" alt="Imagem 5" /></div>
+      <div class="swiper-slide"><img src="images/imagem6.png" class="carousel-img" alt="Imagem 6" /></div>
+    </div>
+  </div>
+</div>
+<style>
+ .swiper {
+  width: 100%;
+  max-width: 500px;
+  height: 350px; /* Altura fixa */
+  overflow: hidden; /* Evita que imagem maior estoure */
+  border-radius: 10px;
+}
+
+.carousel-img {
+  width: 100%;
+  height: 100%; /* Força a imagem ocupar a altura da div */
+  object-fit: cover; /* Cobre a área sem distorcer */
+  border-radius: 10px;
+}
+
+/* Responsivo para celular */
+@media (max-width: 768px) {
+  .swiper {
+    height: 220px;
+  }
+}
+
+</style>
+      </div>
+    </div>
+  </section>
+
+  <!-- Seção 3: Footer -->
+  <footer class="footer py-5 m-0" style="background-color: rgb(26, 52, 90);">
+    <div class="container ">
+      <div class="row">
+        <div class="col-md-4 mb-4 mb-md-0">
+          <div class="d-flex flex-column text-center text-md-start align-items-center justify-content-center">
+            <img src="images/logo-baixo.png" alt="Logo Matheus Reboque" width="130px" height="100%" class=" mb-3">
+            <p class="text-center">Assistência 24 Horas para seu veículo com qualidade e segurança.</p>
+          </div>
+        </div>
+        
+        <div class="col-md-4 mb-4 mb-md-0">
+          <div class="text-center">
+            <h3 class="section-title text-center">Contatos</h3>
+            <ul class="list-unstyled">
+              <li class="mb-2">
+                <a href="https://wa.me/5531996492419" target="_blank" class="text-white text-decoration-none">
+                 <img src="images/logo-whatsapp.png" class=" footer-icon"/> (31) 99649-2419
+                </a>
+              </li>
+              <li class="mb-2">
+                <a href="tel:+5531982113980" class="text-white text-decoration-none">
+                  <i class="fas fa-phone-alt footer-icon"></i> (31) 98211-3980
+                </a>
+              </li>
+              <li class="mb-2">
+                <a href="mailto:matheushfranscisco1998@gmail.com" class="text-white text-decoration-none">
+                  <img src="images/logoemail.png" class=" footer-icon"/> matheushfranscisco1998@gmail.com
+                </a>
+              </li>
+              <li>
+                <a href="https://www.instagram.com/matheus_reboque_24_hrs/" target="_blank" class="text-white text-decoration-none">
+                  <img src="images/instagramlogo.png" class="footer-icon" /> Instagram
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="text-center text-md-start">
+            <h3 class="section-title text-center text-md-start">Localização</h3>
+            <p><i class="fas fa-map-marker-alt footer-icon"></i> Contagem, Esmeraldas, Nova Contagem, Novo Retiro e todas as regiões.</p>
+            <div class="mt-3">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3752.9032696094673!2d-44.1488372!3d-19.8440454!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa6ec86545b21f5%3A0xb03a419013bf4f5!2sLMG-808%2C%20Minas%20Gerais!5e0!3m2!1spt-BR!2sbr!4v1749525681814!5m2!1spt-BR!2sbr" width="100%" height="150" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy"></iframe>
+            
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <hr class="">
+      
+      <div class="text-center">
+  <p class="mb-0">&copy; Matheus Reboque <span id="current-year"></span>. Todos os direitos reservados.</p>
+</div>
+
+<script>
+  // Obter o ano atual e inserir no footer
+  document.getElementById('current-year').textContent = new Date().getFullYear();
+</script>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Float -->
+  <a href="https://wa.me/5531996492419" target="_blank" class="whatsapp-float">
+    <img src="images/botao-whatsapp-fixo.png" alt="WhatsApp" width="200px">
+</a>
+      <!-- <img src="images/botao-whatsapp-fixo" alt=""> -->
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    // Animação do WhatsApp Float
+    window.addEventListener('scroll', function() {
+      const whatsappFloat = document.querySelector('.whatsapp-float');
+      const scrollPosition = window.scrollY;
+      const halfPage = document.body.scrollHeight / 4;
+      
+      if (scrollPosition > halfPage) {
+        whatsappFloat.classList.add('show');
+      } else {
+        whatsappFloat.classList.remove('show');
+      }
+    });
+
+    // Animação da imagem na seção "Sobre"
+    window.addEventListener('scroll', function() {
+      const aboutSection = document.querySelector('.animate-fade-in');
+      const position = aboutSection.getBoundingClientRect();
+      
+      // Verificando se a seção está visível na tela
+      if(position.top < window.innerHeight && position.bottom >= 0) {
+        aboutSection.classList.add('active');
+      }
+    });
+    
+    // Ativar o carrossel do Bootstrap
+    const myCarousel = document.querySelector('#mainCarousel');
+    const carousel = new bootstrap.Carousel(myCarousel, {
+      interval: 3000,
+      ride: 'carousel'
+    });
+    
+    // Mudar cor da navbar ao rolar
+    window.addEventListener('scroll', function() {
+      const navbar = document.querySelector('.navbar');
+      if(window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+  </script>
+  <script>
+  const swiper = new Swiper(".mySwiper", {
+    loop: true,
+    autoplay: {
+      delay: 3000,
+      disableOnInteraction: false,
+    },
+    speed: 800,
+    effect: "slide",
+  });
+</script>
+</body>
+</html>
